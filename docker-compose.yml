@@ -1,0 +1,12 @@
+services: ##Main block, compose by the services the app needs
+  app:
+    build: ##build the docker file inside the actual directory (.)
+      context: .
+      args:
+        - DEV=true
+    ports: ##Connects ports between local machine with docker container
+      - "8000:8000" 
+    volumes: ##Mapping directories with the ones in the container
+      - ./app:/app
+    command: > ##Command used to run the service. It can be overrided when running the container
+      sh -c "python manage.py runserver 0.0.0.0:8000"
